@@ -77,7 +77,7 @@
     "type": "git",
     "url": "git+https://github.com/su-engineering/eudi-disclosure-policy.git"
   },
-  "homepage": "https://su-engineering.github.io/eudi-disclosure-policy/",
+  "homepage": "https://github.com/su-engineering/eudi-disclosure-policy#readme",
   "bugs": {
     "url": "https://github.com/su-engineering/eudi-disclosure-policy/issues"
   },

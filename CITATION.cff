@@ -11,7 +11,7 @@ authors:
   - name: su.engineering
     website: https://su.engineering
 repository-code: https://github.com/su-engineering/eudi-disclosure-policy
-url: https://su-engineering.github.io/eudi-disclosure-policy/
+url: https://su.engineering/open-source
 license: Apache-2.0
 keywords:
   - EUDI Wallet
