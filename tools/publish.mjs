@@ -1,5 +1,5 @@
 /** Publish with npm's OIDC trusted publishing from GitHub Actions. */
-import { readFileSync } from 'node:fs';
+import { appendFileSync, readFileSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 
 const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
@@ -27,6 +27,10 @@ if (!process.env.CI || !process.env.ACTIONS_ID_TOKEN_REQUEST_URL) {
     'Automated releases require GitHub Actions OIDC. See docs/releasing.md for manual releases.',
   );
 }
+// changesets/action v2 sets this; without it the tag and release would be lost.
+if (!process.env.CHANGESETS_OUTPUT) {
+  throw new Error('CHANGESETS_OUTPUT is unset; run this script from changesets/action v2.');
+}
 // Every release goes to "latest". npm set "latest" on the first publish and it
 // cannot be removed, so a separate preview tag would leave plain installs stale.
 const result = spawnSync(
@@ -36,5 +40,10 @@ const result = spawnSync(
 );
 if (result.status !== 0) process.exit(result.status ?? 1);
 execFileSync('git', ['tag', tag]);
-// The Changesets action recognizes this marker, pushes the tag, and creates a release.
+// changesets/action v2 pushes the tag and creates the GitHub release only for
+// events written to this file. It ignores the "New tag:" log line used by v1.
+appendFileSync(
+  process.env.CHANGESETS_OUTPUT,
+  `${JSON.stringify({ type: 'git-tag', tag, packageName: pkg.name })}\n`,
+);
 console.log(`New tag: ${tag}`);
