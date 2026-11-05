@@ -42,7 +42,7 @@ jobs:
       - run: pnpm build
       - run: pnpm test:package
       - name: Generate SBOM
-        run: npm sbom --sbom-format cyclonedx --omit dev > sbom.cdx.json
+        run: pnpm sbom --sbom-format cyclonedx --prod > sbom.cdx.json
       - name: Ensure this is still the current release commit
         id: current
         env:
