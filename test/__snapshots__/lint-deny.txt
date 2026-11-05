@@ -1,0 +1,23 @@
+EUDI DISCLOSURE POLICY / REQUEST PREFLIGHT
+Policy: example.age-gate@1.0.0 (age-verification-over-18)
+Profile: openid4vp-1.0
+Evaluated at: 2026-11-05T16:00:00Z
+Registration evidence: absent
+Verdict: DENY
+Coverage: complete
+
+DENY   CREDENTIAL_SET_EXCESSIVE_OPTION
+       /credential_sets/0/options/1  [branch cs0.o1]
+       Option 1 of credential set 0 ('bd') violates the policy, while cs0.o0
+       complies. The wallet may present any option.
+       Fix: Remove the excessive option. A compliant alternative does not
+       make a non-compliant one acceptable.
+
+DENY   CLAIM_EXPLICITLY_DENIED
+       /credentials/1/claims/0/path  [branch cs0.o1]
+       Credential query 'bd' requests ["birth_date"], denied by policy rule
+       'proof-of-age' for vct "urn:example:proof-of-age:v1".
+       Fix: Remove the claim from the request. Deny rules exist to block
+       data the purpose must never collect.
+
+2 denials | 0 warnings | 0 indeterminate checks | 0 notes
