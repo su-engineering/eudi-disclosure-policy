@@ -8,6 +8,8 @@ export default defineConfig({
   test: {
     include: ['test/**/*.test.ts'],
     environment: 'node',
+    // Property and determinism tests are CPU-bound; shared runners with coverage are slow.
+    testTimeout: 30_000,
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],

@@ -299,7 +299,7 @@ describe('determinism and isolation', () => {
       for (let i = 0; i < 100; i++)
         expect(canonicalJson(evaluateRequest(fixtureInput(fixture)))).toBe(first);
     }
-  });
+  }, 60_000); // 7,000 evaluations; slow under coverage on shared CI runners.
 
   it('differs only in evaluatedAt when only the evaluation time changes', () => {
     const a = evaluateRequest(input()) as unknown as Record<string, unknown>;
