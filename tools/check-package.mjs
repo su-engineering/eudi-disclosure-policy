@@ -4,6 +4,7 @@
  * bare ECMAScript realm with no network, timers, process, or module loader.
  */
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import vm from 'node:vm';
 import { build } from 'esbuild';
@@ -18,6 +19,19 @@ for (const target of targets)
 assert.ok(
   readFileSync(pkg.bin['eudi-disclosure'], 'utf8').startsWith('#!/usr/bin/env node\n'),
   'CLI needs a shebang',
+);
+// npm publish silently drops package.json fields it considers invalid (it
+// removed the bin entry once), while npm pack does not. Fail on any correction.
+// Offline with a dummy registry: the check must not depend on what is published.
+const dryRun = spawnSync(
+  'npm',
+  ['publish', '--dry-run', '--ignore-scripts', '--offline', '--registry', 'http://127.0.0.1:9/'],
+  { encoding: 'utf8' },
+);
+assert.equal(dryRun.status, 0, `npm publish --dry-run failed:\n${dryRun.stderr}`);
+assert.ok(
+  !/auto-corrected/.test(dryRun.stderr),
+  `npm would rewrite package.json on publish:\n${dryRun.stderr}`,
 );
 
 const core = readFileSync(pkg.main, 'utf8');
