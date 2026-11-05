@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+title: 'EUDI Disclosure Policy: verifier-side preflight for OpenID4VP DCQL requests'
+abstract: >-
+  A TypeScript library and CLI that checks every credential and claim
+  alternative of an OpenID4VP 1.0 DCQL request against a local
+  data-minimization policy before the request reaches a European Digital
+  Identity Wallet.
+type: software
+authors:
+  - name: su.engineering
+    website: https://su.engineering
+repository-code: https://github.com/su-engineering/eudi-disclosure-policy
+url: https://su-engineering.github.io/eudi-disclosure-policy/
+license: Apache-2.0
+keywords:
+  - EUDI Wallet
+  - OpenID4VP
+  - DCQL
+  - data minimization
+  - SD-JWT VC
+  - ISO mdoc
+  - eIDAS 2.0
+  - verifiable credentials
+  - policy as code

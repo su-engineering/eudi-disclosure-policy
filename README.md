@@ -1,17 +1,19 @@
 # EUDI Disclosure Policy
 
-**Check an OpenID4VP request against your data-minimization policy before it reaches a wallet.**
+**Check an OpenID4VP DCQL request against your data-minimization policy before it reaches an EUDI Wallet.**
 
 [![CI](https://github.com/su-engineering/eudi-disclosure-policy/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/su-engineering/eudi-disclosure-policy/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-A verifier asks a wallet for credentials with a DCQL query. A query can offer alternatives: several credential sets, optional sets, several claim sets, several accepted types. The wallet may answer with any of them. This library evaluates **every alternative** against a versioned, local policy for one purpose, and reports what is allowed, what is not, and what it cannot determine, with a JSON pointer to the exact query branch responsible.
+A relying party (verifier) asks a European Digital Identity (EUDI) Wallet for credentials with an OpenID4VP DCQL query. A query can offer alternatives: several credential sets, optional sets, several claim sets, several accepted types. The wallet may answer with any of them. This library evaluates **every alternative** against a versioned, local policy for one purpose, and reports what is allowed, what is not, and what it cannot determine, with a JSON pointer to the exact query branch responsible.
 
 - **Every branch counts:** a compliant first option never hides a non-compliant second one. Optional credential sets are requests too.
 - **Fails closed:** unknown types, unknown disclosure behavior, unverified registration evidence, and unreviewed extensions are `INDETERMINATE`, never `ALLOW`.
 - **Format-aware:** exact SD-JWT VC (`dc+sd-jwt`) and mdoc (`mso_mdoc`) path semantics, including namespaces, wildcards, and strict index types.
 - **Explains itself:** stable rule IDs, categories, remediation, standards references, and deterministic output for CI.
 - **Safe to run anywhere:** a pure, synchronous core with no network, clock, file system, or environment access. Claim values never appear in results.
+
+Built for verifier engineers, SDK maintainers, and privacy reviewers in the eIDAS 2.0 ecosystem: run it in your backend before you sign an authorization request, or in CI as policy-as-code.
 
 Maintained by [su.engineering](https://su.engineering) · [Apache-2.0](LICENSE) · Node.js 22+ and browsers · OpenID4VP 1.0 Final
 
@@ -195,6 +197,22 @@ pnpm check   # lint, typecheck, tests, build, package check, examples
 ```
 
 Use Node.js 22 or newer. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Changes to rule behavior need a fixture and a [changeset](.changeset/README.md).
+
+## FAQ
+
+**What is DCQL?** The Digital Credentials Query Language, defined in OpenID for Verifiable Presentations (OpenID4VP) 1.0 §6. A verifier uses it to tell a wallet which credentials and claims it wants, including alternatives through `credential_sets` and `claim_sets`.
+
+**Why check a request before sending it?** Every alternative in a DCQL query is a request the wallet may fulfil. Data minimization means asking only for what a purpose needs, so the check has to cover the least favorable alternative, not the preferred one.
+
+**Does it validate relying-party registration or access certificates?** No. It compares the request with registration evidence that your code verified and asserts. Under Implementing Regulation (EU) 2024/2982 (Annex II, WRP-OVERASKING), wallets compare requests with the registration certificate themselves; this library helps you never trigger that warning. See [trust boundaries](docs/trust-boundaries.md).
+
+**Does it support SD-JWT VC and ISO mdoc?** Yes: `dc+sd-jwt` with JSON claim paths, and `mso_mdoc` with `[namespace, element]` paths and `intent_to_retain`. Other formats are reported as unsupported rather than guessed.
+
+**Is it a GDPR or eIDAS compliance tool?** No. It enforces the policy you approve for a purpose and explains its decisions. Whether a purpose is lawful, necessary, and proportionate is decided outside the library.
+
+**Does it work in the browser?** Yes. The core is pure ECMAScript with one small dependency and no network, clock, or Node.js APIs. Enforce on the server that signs requests.
+
+**Does it handle wallet-side embedded disclosure policies?** Not yet. Wallet-side evaluation under Implementing Regulation (EU) 2024/2979 Article 10 is planned as a separate module.
 
 ## Security
 
