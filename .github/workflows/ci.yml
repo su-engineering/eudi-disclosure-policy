@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: Lint, typecheck, coverage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      # The core must compile with no Node.js or DOM types.
+      - run: pnpm exec tsc --noEmit -p tsconfig.core.json
+      - run: pnpm test:coverage
+      - run: pnpm build
+      - name: Rule reference is current
+        run: node tools/gen-rule-reference.mjs --check
+
+  test:
+    name: Test (${{ matrix.os }}, Node.js ${{ matrix.node }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm test
+      # Declared targets, and the core evaluated in a bare browser-like realm.
+      - run: pnpm test:package
+      - run: pnpm examples
+      - name: Canonical output is identical across platforms
+        shell: bash
+        run: |
+          node dist/cli.js lint --query examples/age-verification/requests/pid-alternative.json \
+            --policy examples/age-verification/policy.json \
+            --evaluation-time 2026-11-05T16:00:00Z --format json > result.json || test $? -eq 1
+          sha256sum result.json 2>/dev/null || shasum -a 256 result.json

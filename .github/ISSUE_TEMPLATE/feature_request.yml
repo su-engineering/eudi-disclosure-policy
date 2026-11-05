@@ -1,0 +1,17 @@
+name: Feature request
+description: Propose a rule, format adapter, or integration with a concrete use case.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the request shape or deployment that needs it.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior and standards basis
+      description: Expected verdicts, and the normative clause or published profile it follows.
+    validations:
+      required: true

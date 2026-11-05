@@ -1,0 +1,27 @@
+name: Bug report
+description: A wrong verdict, finding, or error for a specific query and policy.
+body:
+  - type: markdown
+    attributes:
+      value: 'For vulnerabilities, including false ALLOW results and value leaks, follow SECURITY.md instead. Use synthetic data and urn:example: identifiers only.'
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Query and policy
+      description: The smallest DCQL query and policy that reproduce the problem.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual result
+      description: Include the verdict and the relevant findings (rule ID and pointer). Cite the OpenID4VP clause if relevant.
+    validations:
+      required: true
