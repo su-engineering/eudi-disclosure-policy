@@ -177,6 +177,10 @@ The CLI reads local files or stdin only; it never follows a `request_uri`. Diagn
 
 **Not in scope:** verifying relying-party identity, access or registration certificates, trust lists, or status lists; fetching registries; wallet-side decisions or embedded disclosure policies (planned as a separate module); consent; generating or rewriting requests; legal compliance. A verifier's `ALLOW` never authorizes a wallet to disclose: wallet security, issuer policy, and user approval remain independent controls.
 
+## Roadmap
+
+Planned work is tracked as [GitHub issues grouped by milestone](https://github.com/su-engineering/eudi-disclosure-policy/milestones): SARIF output and interop fixtures next, then a verifier integration and more credential formats. 1.0 needs external review, a stable API, and a compatibility policy ([releasing](docs/releasing.md#before-10)).
+
 ## Examples
 
 Three fictional scenarios with policies, requests, and expected outcomes run in CI:

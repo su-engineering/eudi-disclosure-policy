@@ -87,10 +87,11 @@ if (verdict === 'DENY' || verdict === 'INDETERMINATE')
 
 ## Next steps (M2)
 
-1. First npm publish and trusted-publisher setup ([docs/releasing.md](releasing.md)).
-2. SARIF output for code-scanning tools (M2-02).
-3. Interoperability fixtures from OpenID4VP examples and public wallet/verifier test suites, with source and license per fixture (M2-05).
-4. Report the parser gaps upstream to openeudi/dcql.
-5. A format-adapter interface with contract tests (M2-04), then `jwt_vc_json`.
-6. Integration with one open-source verifier, such as keycloak-oid4vp (M2-06).
-7. External reviews from at least two implementers (M2-08).
+The first npm publish and trusted-publisher setup are done ([releasing](releasing.md)). The remaining items are tracked as GitHub issues, grouped by [milestone](https://github.com/su-engineering/eudi-disclosure-policy/milestones):
+
+- SARIF output for code-scanning tools (M2-02): [#7](https://github.com/su-engineering/eudi-disclosure-policy/issues/7).
+- Interoperability fixtures with source and license per fixture (M2-05): [#8](https://github.com/su-engineering/eudi-disclosure-policy/issues/8).
+- Parser gaps reported upstream to openeudi/dcql: [#9](https://github.com/su-engineering/eudi-disclosure-policy/issues/9).
+- Integration with keycloak-oid4vp (M2-06): [#10](https://github.com/su-engineering/eudi-disclosure-policy/issues/10).
+- Format-adapter interface (M2-04), then `jwt_vc_json`: [#11](https://github.com/su-engineering/eudi-disclosure-policy/issues/11), [#12](https://github.com/su-engineering/eudi-disclosure-policy/issues/12).
+- External reviews from at least two implementers (M2-08): [#17](https://github.com/su-engineering/eudi-disclosure-policy/issues/17).
