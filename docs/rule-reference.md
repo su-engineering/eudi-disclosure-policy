@@ -91,7 +91,7 @@ Registration evidence the caller asserts as verified does not list the requested
 
 **Fix:** Request only registered attributes, or update the relying-party registration through the registrar before requesting more.
 
-**References:** EUDI ARF 3.0.0 §6.6.3.3; EUDI TS05; EUDI TS06
+**References:** EUDI ARF 3.0.0 §6.6.3.3; Implementing Regulation (EU) 2024/2982 Annex II WRP-OVERASKING-01; EUDI TS05; EUDI TS06
 
 ## REGISTRATION_EVIDENCE_MISSING
 

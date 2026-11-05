@@ -73,7 +73,12 @@ export const RULES: Readonly<Record<RuleId, RuleDefinition>> = {
       'Registration evidence the caller asserts as verified does not list the requested credential type, or no registered claim path covers the requested path. A request for part of a registered claim is in scope; a request for its parent is not.',
     remediation:
       'Request only registered attributes, or update the relying-party registration through the registrar before requesting more.',
-    standardRefs: [`${ARF} §6.6.3.3`, 'EUDI TS05', 'EUDI TS06'],
+    standardRefs: [
+      `${ARF} §6.6.3.3`,
+      'Implementing Regulation (EU) 2024/2982 Annex II WRP-OVERASKING-01',
+      'EUDI TS05',
+      'EUDI TS06',
+    ],
   },
   REGISTRATION_EVIDENCE_MISSING: {
     id: 'REGISTRATION_EVIDENCE_MISSING',

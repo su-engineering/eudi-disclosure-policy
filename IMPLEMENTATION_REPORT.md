@@ -68,7 +68,6 @@ All recorded in ADRs or the standards lock:
 - Only `dc+sd-jwt` and `mso_mdoc` are interpreted. `trusted_authorities` is preserved but not evaluated.
 - SD-JWT VC type inheritance is not resolved.
 - Disclosure profiles are policy-author statements; no schema registry is consulted.
-- Regulation texts on EUR-Lex were not machine-retrieved (bot protection); their references are carried over from the specification and must be checked manually.
 - No independent security review has taken place.
 
 ## Minimal usage
