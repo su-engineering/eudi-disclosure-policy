@@ -1,0 +1,35 @@
+{
+  "policy": "policy.json",
+  "runs": [
+    {
+      "request": "requests/exact-element.json",
+      "verdict": "ALLOW",
+      "ruleIds": [],
+      "why": "Exact namespace and element, no retention."
+    },
+    {
+      "request": "requests/retain.json",
+      "verdict": "DENY",
+      "ruleIds": ["MDOC_RETENTION_REQUESTED"],
+      "why": "Same element with intent_to_retain: true."
+    },
+    {
+      "request": "requests/other-namespace.json",
+      "verdict": "DENY",
+      "ruleIds": ["CLAIM_NOT_ALLOWED_FOR_PURPOSE"],
+      "why": "A similar element in another namespace is not authorized."
+    },
+    {
+      "request": "requests/wildcard.json",
+      "verdict": "DENY",
+      "ruleIds": ["DCQL_INVALID"],
+      "why": "mdoc paths are exactly [namespace, element]; a wildcard is invalid DCQL (OpenID4VP 1.0 §7.2)."
+    },
+    {
+      "request": "requests/unprofiled.json",
+      "verdict": "INDETERMINATE",
+      "ruleIds": ["UNKNOWN_DISCLOSURE_PROFILE"],
+      "why": "The mandatory disclosure of this doctype is unknown."
+    }
+  ]
+}

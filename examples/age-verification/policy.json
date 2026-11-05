@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0",
+  "policyId": "example.age-verification",
+  "policyVersion": "1.0.0",
+  "purposeId": "age-verification-over-18",
+  "description": "Fictional sample: verify that the user is over 18 without collecting identity attributes",
+  "credentials": [
+    {
+      "id": "proof-of-age",
+      "format": "dc+sd-jwt",
+      "credentialType": {
+        "kind": "vct",
+        "value": "urn:example:proof-of-age:v1"
+      },
+      "allowClaims": [
+        {
+          "path": ["age_over_18"],
+          "matching": "exact",
+          "classification": "ordinary"
+        }
+      ],
+      "denyClaims": [
+        {
+          "path": ["birth_date"],
+          "matching": "exact",
+          "classification": "sensitive"
+        },
+        {
+          "path": ["family_name"],
+          "matching": "exact",
+          "classification": "sensitive"
+        },
+        {
+          "path": ["resident_address"],
+          "matching": "subtree",
+          "classification": "sensitive"
+        }
+      ],
+      "disclosureProfile": {
+        "mode": "selective",
+        "knownMandatoryPaths": [],
+        "schemaId": "example:proof-of-age",
+        "schemaVersion": "1"
+      }
+    },
+    {
+      "id": "age-unprofiled",
+      "format": "dc+sd-jwt",
+      "credentialType": {
+        "kind": "vct",
+        "value": "urn:example:age-unprofiled:v1"
+      },
+      "allowClaims": [
+        {
+          "path": ["age_over_18"],
+          "matching": "exact"
+        }
+      ]
+    }
+  ],
+  "defaults": {
+    "unknownCredential": "deny",
+    "unknownClaim": "deny",
+    "unknownDisclosure": "indeterminate",
+    "registrationEvidenceRequired": false,
+    "permitValueConstraints": false,
+    "permitHolderBindingDisabled": false,
+    "permitMultipleCredentials": false,
+    "maxCredentialQueries": 32,
+    "maxClaimQueries": 256
+  }
+}

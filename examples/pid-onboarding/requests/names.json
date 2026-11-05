@@ -1,0 +1,19 @@
+{
+  "credentials": [
+    {
+      "id": "pid",
+      "format": "dc+sd-jwt",
+      "meta": {
+        "vct_values": ["urn:example:pid:v1"]
+      },
+      "claims": [
+        {
+          "path": ["given_name"]
+        },
+        {
+          "path": ["family_name"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "credentials": [
+    {
+      "id": "mdl",
+      "format": "mso_mdoc",
+      "meta": {
+        "doctype_value": "org.example.mdl.1"
+      },
+      "claims": [
+        {
+          "path": ["org.example.other.1", "age_over_18"]
+        }
+      ]
+    }
+  ]
+}

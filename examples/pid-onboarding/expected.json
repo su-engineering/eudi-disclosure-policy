@@ -1,0 +1,52 @@
+{
+  "policy": "policy.json",
+  "runs": [
+    {
+      "request": "requests/names.json",
+      "policy": "policy.json",
+      "args": [],
+      "verdict": "ALLOW",
+      "ruleIds": [],
+      "why": "Name fields only."
+    },
+    {
+      "request": "requests/adds-picture.json",
+      "policy": "policy.json",
+      "args": [],
+      "verdict": "DENY",
+      "ruleIds": ["CLAIM_EXPLICITLY_DENIED"],
+      "why": "The portrait is denied for this purpose."
+    },
+    {
+      "request": "requests/names-and-reference.json",
+      "policy": "policy-registered.json",
+      "args": [
+        "--registration",
+        "registration-names-only.json",
+        "--rp-id",
+        "urn:example:rp:shop",
+        "--service-id",
+        "urn:example:rp:shop:onboarding"
+      ],
+      "verdict": "DENY",
+      "ruleIds": ["CLAIM_NOT_IN_REGISTERED_SCOPE"],
+      "why": "The policy allows the reference, but the verified registration covers names only."
+    },
+    {
+      "request": "requests/names.json",
+      "policy": "policy-registered.json",
+      "args": [],
+      "verdict": "INDETERMINATE",
+      "ruleIds": ["REGISTRATION_EVIDENCE_MISSING"],
+      "why": "Registration evidence is required but omitted: not treated as registered."
+    },
+    {
+      "request": "requests/multiple-vct.json",
+      "policy": "policy.json",
+      "args": [],
+      "verdict": "DENY",
+      "ruleIds": ["CREDENTIAL_TYPE_AMBIGUOUS", "CREDENTIAL_TYPE_NOT_ALLOWED"],
+      "why": "The unknown variant does not inherit permission from the configured type."
+    }
+  ]
+}

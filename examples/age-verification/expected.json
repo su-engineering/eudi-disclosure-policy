@@ -1,0 +1,35 @@
+{
+  "policy": "policy.json",
+  "runs": [
+    {
+      "request": "requests/minimal.json",
+      "verdict": "ALLOW",
+      "ruleIds": [],
+      "why": "Only the age threshold is requested from a type with a known disclosure profile."
+    },
+    {
+      "request": "requests/pid-alternative.json",
+      "verdict": "DENY",
+      "ruleIds": ["CREDENTIAL_SET_EXCESSIVE_OPTION", "CREDENTIAL_TYPE_NOT_ALLOWED"],
+      "why": "The PID alternative stays selectable even though the proof-of-age option is preferred (specification §7.2)."
+    },
+    {
+      "request": "requests/optional-address.json",
+      "verdict": "DENY",
+      "ruleIds": ["CLAIM_EXPLICITLY_DENIED", "OPTIONAL_CREDENTIAL_SET"],
+      "why": "An optional credential set is still a request for the address."
+    },
+    {
+      "request": "requests/value-filter.json",
+      "verdict": "DENY",
+      "ruleIds": ["VALUE_FILTER_PROBING_RISK"],
+      "why": "values: [true] is a probing risk and the policy does not permit value filters. It proves nothing about the user."
+    },
+    {
+      "request": "requests/unprofiled-type.json",
+      "verdict": "INDETERMINATE",
+      "ruleIds": ["UNKNOWN_DISCLOSURE_PROFILE"],
+      "why": "The type has no disclosure profile, so minimal disclosure cannot be established."
+    }
+  ]
+}

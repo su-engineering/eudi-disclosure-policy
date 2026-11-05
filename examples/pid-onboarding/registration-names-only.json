@@ -1,0 +1,23 @@
+{
+  "state": "verified",
+  "provenance": {
+    "source": "urn:example:registrar",
+    "profile": "example-registration-v1",
+    "verifier": "example-registration-verifier/1.0",
+    "verifiedAt": "2026-11-01T09:00:00Z",
+    "expiresAt": "2027-11-01T09:00:00Z",
+    "digest": "sha-256:0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "rpId": "urn:example:rp:shop",
+  "serviceId": "urn:example:rp:shop:onboarding",
+  "allowed": [
+    {
+      "format": "dc+sd-jwt",
+      "credentialType": {
+        "kind": "vct",
+        "value": "urn:example:pid:v1"
+      },
+      "claimPaths": [["given_name"], ["family_name"]]
+    }
+  ]
+}

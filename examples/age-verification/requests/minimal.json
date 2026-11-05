@@ -1,0 +1,16 @@
+{
+  "credentials": [
+    {
+      "id": "age",
+      "format": "dc+sd-jwt",
+      "meta": {
+        "vct_values": ["urn:example:proof-of-age:v1"]
+      },
+      "claims": [
+        {
+          "path": ["age_over_18"]
+        }
+      ]
+    }
+  ]
+}

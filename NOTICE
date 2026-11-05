@@ -1,0 +1,16 @@
+eudi-disclosure-policy
+Copyright 2026 SU Engineering
+
+This product is licensed under the Apache License, Version 2.0.
+
+It depends on @openeudi/dcql (Apache License 2.0, OpenEUDI Contributors),
+https://github.com/openeudi/dcql, which is installed as a separate package and
+is not redistributed in this repository.
+
+Fixtures and examples are original and use fictional urn:example: identifiers.
+Clause references to OpenID for Verifiable Presentations 1.0 and to EUDI Wallet
+documents are citations; no text of those documents is reproduced beyond
+short quotations.
+
+This attribution does not imply affiliation with or endorsement by the
+OpenID Foundation, the European Commission, ETSI, or the OpenEUDI project.

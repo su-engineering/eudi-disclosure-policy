@@ -1,0 +1,36 @@
+{
+  "credentials": [
+    {
+      "id": "proof",
+      "format": "dc+sd-jwt",
+      "meta": {
+        "vct_values": ["urn:example:proof-of-age:v1"]
+      },
+      "claims": [
+        {
+          "path": ["age_over_18"]
+        }
+      ]
+    },
+    {
+      "id": "pid",
+      "format": "dc+sd-jwt",
+      "meta": {
+        "vct_values": ["urn:example:pid"]
+      },
+      "claims": [
+        {
+          "path": ["birth_date"]
+        },
+        {
+          "path": ["family_name"]
+        }
+      ]
+    }
+  ],
+  "credential_sets": [
+    {
+      "options": [["proof"], ["pid"]]
+    }
+  ]
+}

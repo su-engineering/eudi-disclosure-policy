@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0",
+  "policyId": "example.pid-onboarding-registered",
+  "policyVersion": "1.0.0",
+  "purposeId": "customer-onboarding-name-match",
+  "description": "Fictional sample: as policy.json, and the request must stay within verified registered scope",
+  "credentials": [
+    {
+      "id": "pid",
+      "format": "dc+sd-jwt",
+      "credentialType": {
+        "kind": "vct",
+        "value": "urn:example:pid:v1"
+      },
+      "allowClaims": [
+        {
+          "path": ["given_name"],
+          "matching": "exact",
+          "classification": "sensitive"
+        },
+        {
+          "path": ["family_name"],
+          "matching": "exact",
+          "classification": "sensitive"
+        },
+        {
+          "path": ["onboarding_reference"],
+          "matching": "exact",
+          "classification": "ordinary"
+        },
+        {
+          "path": ["iss"],
+          "matching": "exact",
+          "reason": "Always disclosed by SD-JWT VC"
+        },
+        {
+          "path": ["vct"],
+          "matching": "exact",
+          "reason": "Always disclosed by SD-JWT VC"
+        }
+      ],
+      "denyClaims": [
+        {
+          "path": ["address"],
+          "matching": "subtree",
+          "classification": "sensitive"
+        },
+        {
+          "path": ["picture"],
+          "matching": "exact",
+          "classification": "highly-sensitive"
+        }
+      ],
+      "disclosureProfile": {
+        "mode": "selective",
+        "knownMandatoryPaths": [["iss"], ["vct"]],
+        "schemaId": "example:pid",
+        "schemaVersion": "1"
+      }
+    }
+  ],
+  "defaults": {
+    "unknownCredential": "deny",
+    "unknownClaim": "deny",
+    "unknownDisclosure": "indeterminate",
+    "registrationEvidenceRequired": true,
+    "permitValueConstraints": false,
+    "permitHolderBindingDisabled": false,
+    "permitMultipleCredentials": false
+  }
+}
