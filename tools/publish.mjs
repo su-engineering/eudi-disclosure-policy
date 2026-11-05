@@ -27,11 +27,11 @@ if (!process.env.CI || !process.env.ACTIONS_ID_TOKEN_REQUEST_URL) {
     'Automated releases require GitHub Actions OIDC. See docs/releasing.md for manual releases.',
   );
 }
-// 0.x releases are previews; publish them under the "next" dist-tag until 1.0.
-const distTag = pkg.version.startsWith('0.') ? 'next' : 'latest';
+// Every release goes to "latest". npm set "latest" on the first publish and it
+// cannot be removed, so a separate preview tag would leave plain installs stale.
 const result = spawnSync(
   'npm',
-  ['publish', '--access', 'public', '--provenance', '--tag', distTag],
+  ['publish', '--access', 'public', '--provenance', '--tag', 'latest'],
   { stdio: 'inherit' },
 );
 if (result.status !== 0) process.exit(result.status ?? 1);
