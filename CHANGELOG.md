@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+### Patch Changes
+
+- 949f6b9: Publish every release under the npm `latest` dist-tag, so `npm install` gets the newest version. Document the trusted publisher settings, and fail the package check when `npm publish` would rewrite `package.json`.
+
 ## 0.1.0
 
 ### Minor Changes
