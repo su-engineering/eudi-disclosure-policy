@@ -117,7 +117,9 @@ describe('lint', () => {
     expect(result.stderr).toBe('');
     expect(result.stdout.endsWith('\n')).toBe(true);
     expect(result.stdout.trimEnd().includes('\n')).toBe(false);
-    await expect(result.stdout).toMatchFileSnapshot('__snapshots__/lint-deny.json');
+    // The package version changes with every release; everything else must not.
+    const stable = result.stdout.replace(`"version":"${VERSION}"`, '"version":"<VERSION>"');
+    await expect(stable).toMatchFileSnapshot('__snapshots__/lint-deny.json');
   });
 
   it('prints stable human output', async () => {

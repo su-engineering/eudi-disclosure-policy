@@ -42,7 +42,8 @@ jobs:
       - run: pnpm build
       - run: pnpm test:package
       - name: Generate SBOM
-        run: pnpm sbom --sbom-format cyclonedx --prod > sbom.cdx.json
+        # Outside the checkout: the Changesets action commits the working tree.
+        run: pnpm sbom --sbom-format cyclonedx --prod > "$RUNNER_TEMP/sbom.cdx.json"
       - name: Ensure this is still the current release commit
         id: current
         env:
@@ -70,7 +71,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version=$(node -p "require('./package.json').version")
-          gh release upload "v$version" sbom.cdx.json --clobber
+          gh release upload "v$version" "$RUNNER_TEMP/sbom.cdx.json" --clobber
       # GITHUB_TOKEN-created PRs do not trigger pull_request workflows.
       - name: Run CI on the generated version PR
         if: steps.changesets.outputs.pr-number != ''
