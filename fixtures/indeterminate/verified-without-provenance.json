@@ -1,0 +1,48 @@
+{
+  "id": "TC-REG-06",
+  "title": "state verified without provenance",
+  "reason": "A verified flag without provenance metadata is not accepted as verified.",
+  "standardRefs": [],
+  "policy": "pid-onboarding-registered",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          }
+        ]
+      }
+    ]
+  },
+  "registration": {
+    "state": "verified",
+    "rpId": "urn:example:rp:shop",
+    "serviceId": "urn:example:rp:shop:onboarding",
+    "allowed": [
+      {
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:pid:v1"
+        },
+        "claimPaths": [["given_name"], ["family_name"]]
+      }
+    ]
+  },
+  "relyingParty": {
+    "rpId": "urn:example:rp:shop",
+    "serviceId": "urn:example:rp:shop:onboarding"
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "partial",
+    "findings": ["INDETERMINATE REGISTRATION_EVIDENCE_INVALID_OR_STALE (request)"]
+  }
+}

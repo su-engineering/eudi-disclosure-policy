@@ -1,0 +1,49 @@
+{
+  "id": "TC-ALT-01",
+  "title": "One credential set option requests a denied claim",
+  "reason": "The wallet may present either option, so the compliant first option does not make the second acceptable.",
+  "standardRefs": ["OpenID4VP 1.0 §6.4.2"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age_bd",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["birth_date"]
+          }
+        ]
+      }
+    ],
+    "credential_sets": [
+      {
+        "options": [["age"], ["age_bd"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY CREDENTIAL_SET_EXCESSIVE_OPTION /credential_sets/0/options/1 [cs0.o1]",
+      "DENY CLAIM_EXPLICITLY_DENIED /credentials/1/claims/0/path [cs0.o1]"
+    ]
+  }
+}

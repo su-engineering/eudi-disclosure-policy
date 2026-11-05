@@ -1,0 +1,127 @@
+{
+  "id": "TC-REG-08",
+  "title": "Stale evidence escalated to DENY by policy",
+  "reason": "invalidRegistrationEvidence is \"deny\", so expired evidence denies instead of being indeterminate.",
+  "standardRefs": [],
+  "policy": {
+    "schemaVersion": "1.0",
+    "policyId": "example.pid-onboarding-registered",
+    "policyVersion": "1.0.0",
+    "purposeId": "customer-onboarding-name-match",
+    "description": "As example.pid-onboarding, and the request must stay within the verified registered scope",
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:pid:v1"
+        },
+        "allowClaims": [
+          {
+            "path": ["given_name"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["family_name"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["onboarding_reference"],
+            "matching": "exact",
+            "classification": "ordinary"
+          },
+          {
+            "path": ["iss"],
+            "matching": "exact",
+            "reason": "Always disclosed by SD-JWT VC"
+          },
+          {
+            "path": ["vct"],
+            "matching": "exact",
+            "reason": "Always disclosed by SD-JWT VC"
+          }
+        ],
+        "denyClaims": [
+          {
+            "path": ["address"],
+            "matching": "subtree",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["picture"],
+            "matching": "exact",
+            "classification": "highly-sensitive"
+          }
+        ],
+        "disclosureProfile": {
+          "mode": "selective",
+          "knownMandatoryPaths": [["iss"], ["vct"]],
+          "schemaId": "example:pid",
+          "schemaVersion": "1"
+        }
+      }
+    ],
+    "defaults": {
+      "unknownCredential": "deny",
+      "unknownClaim": "deny",
+      "unknownDisclosure": "indeterminate",
+      "registrationEvidenceRequired": true,
+      "permitValueConstraints": false,
+      "permitHolderBindingDisabled": false,
+      "permitMultipleCredentials": false,
+      "invalidRegistrationEvidence": "deny"
+    }
+  },
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          }
+        ]
+      }
+    ]
+  },
+  "registration": {
+    "state": "verified",
+    "provenance": {
+      "source": "urn:example:registrar:de",
+      "profile": "example-registration-v1",
+      "verifier": "example-registration-verifier/1.0",
+      "verifiedAt": "2026-11-01T09:00:00Z",
+      "expiresAt": "2026-11-01T10:00:00Z",
+      "digest": "sha-256:4f1c0a0b2c9e2f4e6f9d3c1a0b8e7d6c5b4a39281706f5e4d3c2b1a0f9e8d7c6"
+    },
+    "rpId": "urn:example:rp:shop",
+    "serviceId": "urn:example:rp:shop:onboarding",
+    "allowed": [
+      {
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:pid:v1"
+        },
+        "claimPaths": [["given_name"], ["family_name"]]
+      }
+    ]
+  },
+  "relyingParty": {
+    "rpId": "urn:example:rp:shop",
+    "serviceId": "urn:example:rp:shop:onboarding"
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY REGISTRATION_EVIDENCE_INVALID_OR_STALE (request)"]
+  }
+}

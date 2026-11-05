@@ -1,0 +1,29 @@
+{
+  "id": "SCN-C-05",
+  "title": "mdoc type without a disclosure profile",
+  "reason": "Named claims are allowed, but what else a presentation discloses is unknown.",
+  "standardRefs": [],
+  "policy": "mdoc-retention",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "mdl",
+        "format": "mso_mdoc",
+        "meta": {
+          "doctype_value": "org.example.mdl.unprofiled.1"
+        },
+        "claims": [
+          {
+            "path": ["org.example.mdl.unprofiled.1", "age_over_18"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "partial",
+    "findings": ["INDETERMINATE UNKNOWN_DISCLOSURE_PROFILE /credentials/0/meta/doctype_value"]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "TC-VALUES-01",
+  "title": "String value filter prohibited by policy",
+  "reason": "The filter is denied; its values never appear in the result.",
+  "standardRefs": ["OpenID4VP 1.0 §6.4.1"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          },
+          {
+            "path": ["nationality_code"],
+            "values": ["SYNTHETIC-VALUE-NL", "SYNTHETIC-VALUE-DE"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY CLAIM_NOT_ALLOWED_FOR_PURPOSE /credentials/0/claims/1/path",
+      "DENY VALUE_FILTER_PROBING_RISK /credentials/0/claims/1/values"
+    ]
+  }
+}

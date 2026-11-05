@@ -1,0 +1,54 @@
+{
+  "id": "TC-ALT-02",
+  "title": "Optional credential set requests address",
+  "reason": "Optional sets are still requests. The address subtree is denied.",
+  "standardRefs": ["OpenID4VP 1.0 §6.4.2"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "address",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["resident_address"]
+          }
+        ]
+      }
+    ],
+    "credential_sets": [
+      {
+        "required": true,
+        "options": [["age"]]
+      },
+      {
+        "required": false,
+        "options": [["address"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY CLAIM_EXPLICITLY_DENIED /credentials/1/claims/0/path [cs1.o0]",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/1/required"
+    ]
+  }
+}

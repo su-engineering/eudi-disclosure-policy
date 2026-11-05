@@ -1,0 +1,87 @@
+{
+  "id": "TC-BINDING-02",
+  "title": "Holder binding disabled with explicit permission",
+  "reason": "The policy permits it, so it is a warning rather than a denial.",
+  "standardRefs": [],
+  "policy": {
+    "schemaVersion": "1.0",
+    "policyId": "example.age-gate",
+    "policyVersion": "1.0.0",
+    "purposeId": "age-verification-over-18",
+    "description": "Verify age threshold without collecting identity attributes",
+    "credentials": [
+      {
+        "id": "proof-of-age",
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:proof-of-age:v1"
+        },
+        "allowClaims": [
+          {
+            "path": ["age_over_18"],
+            "matching": "exact",
+            "classification": "ordinary"
+          }
+        ],
+        "denyClaims": [
+          {
+            "path": ["birth_date"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["family_name"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["resident_address"],
+            "matching": "subtree",
+            "classification": "sensitive"
+          }
+        ],
+        "disclosureProfile": {
+          "mode": "selective",
+          "knownMandatoryPaths": [],
+          "schemaId": "example:proof-of-age",
+          "schemaVersion": "1"
+        }
+      }
+    ],
+    "defaults": {
+      "unknownCredential": "indeterminate",
+      "unknownClaim": "deny",
+      "unknownDisclosure": "indeterminate",
+      "registrationEvidenceRequired": false,
+      "permitValueConstraints": false,
+      "permitHolderBindingDisabled": true,
+      "permitMultipleCredentials": false,
+      "maxCredentialQueries": 32,
+      "maxClaimQueries": 256
+    }
+  },
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ],
+        "require_cryptographic_holder_binding": false
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "WARN",
+    "coverage": "complete",
+    "findings": ["WARN HOLDER_BINDING_DISABLED /credentials/0/require_cryptographic_holder_binding"]
+  }
+}

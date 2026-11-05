@@ -1,0 +1,29 @@
+{
+  "id": "SCN-C-03",
+  "title": "Same element name in another namespace",
+  "reason": "Namespaces are part of the path; a similar element elsewhere is not authorized.",
+  "standardRefs": ["OpenID4VP 1.0 §7.2"],
+  "policy": "mdoc-retention",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "mdl",
+        "format": "mso_mdoc",
+        "meta": {
+          "doctype_value": "org.example.mdl.1"
+        },
+        "claims": [
+          {
+            "path": ["org.example.other.1", "age_over_18"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY CLAIM_NOT_ALLOWED_FOR_PURPOSE /credentials/0/claims/0/path"]
+  }
+}

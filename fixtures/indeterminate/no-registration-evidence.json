@@ -1,0 +1,29 @@
+{
+  "id": "TC-REG-01",
+  "title": "Registration required but omitted",
+  "reason": "Without evidence the request is not treated as registered.",
+  "standardRefs": [],
+  "policy": "pid-onboarding-registered",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "partial",
+    "findings": ["INDETERMINATE REGISTRATION_EVIDENCE_MISSING (request)"]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "SCN-C-01",
+  "title": "mdoc element with intent_to_retain false",
+  "reason": "Retention intent is explicitly false, so the retention rule does not apply.",
+  "standardRefs": ["OpenID4VP 1.0 Appendix B.2.4"],
+  "policy": "mdoc-retention",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "mdl",
+        "format": "mso_mdoc",
+        "meta": {
+          "doctype_value": "org.example.mdl.1"
+        },
+        "claims": [
+          {
+            "path": ["org.example.mdl.1", "age_over_18"],
+            "intent_to_retain": false
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "ALLOW",
+    "coverage": "complete",
+    "findings": []
+  }
+}

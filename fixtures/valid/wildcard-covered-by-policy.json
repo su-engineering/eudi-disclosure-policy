@@ -1,0 +1,93 @@
+{
+  "id": "TC-PATH-05",
+  "title": "Wildcard approved explicitly by policy",
+  "reason": "The allow rule itself uses a null wildcard, so the policy owner approved every element.",
+  "standardRefs": ["OpenID4VP 1.0 §7.1"],
+  "policy": {
+    "schemaVersion": "1.0",
+    "policyId": "example.age-gate",
+    "policyVersion": "1.0.0",
+    "purposeId": "age-verification-over-18",
+    "description": "Verify age threshold without collecting identity attributes",
+    "credentials": [
+      {
+        "id": "proof-of-age",
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:proof-of-age:v1"
+        },
+        "allowClaims": [
+          {
+            "path": ["age_over_18"],
+            "matching": "exact",
+            "classification": "ordinary"
+          },
+          {
+            "path": ["nationalities", null],
+            "matching": "exact"
+          }
+        ],
+        "denyClaims": [
+          {
+            "path": ["birth_date"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["family_name"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["resident_address"],
+            "matching": "subtree",
+            "classification": "sensitive"
+          }
+        ],
+        "disclosureProfile": {
+          "mode": "selective",
+          "knownMandatoryPaths": [],
+          "schemaId": "example:proof-of-age",
+          "schemaVersion": "1"
+        }
+      }
+    ],
+    "defaults": {
+      "unknownCredential": "indeterminate",
+      "unknownClaim": "deny",
+      "unknownDisclosure": "indeterminate",
+      "registrationEvidenceRequired": false,
+      "permitValueConstraints": false,
+      "permitHolderBindingDisabled": false,
+      "permitMultipleCredentials": false,
+      "maxCredentialQueries": 32,
+      "maxClaimQueries": 256
+    }
+  },
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          },
+          {
+            "path": ["nationalities", null]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "ALLOW",
+    "coverage": "complete",
+    "findings": []
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "id": "TC-LIMIT-01",
+  "title": "More claims queries than the policy allows",
+  "reason": "The policy caps claims queries at 1.",
+  "standardRefs": [],
+  "policy": {
+    "schemaVersion": "1.0",
+    "policyId": "example.age-gate",
+    "policyVersion": "1.0.0",
+    "purposeId": "age-verification-over-18",
+    "description": "Verify age threshold without collecting identity attributes",
+    "credentials": [
+      {
+        "id": "proof-of-age",
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:proof-of-age:v1"
+        },
+        "allowClaims": [
+          {
+            "path": ["age_over_18"],
+            "matching": "exact",
+            "classification": "ordinary"
+          }
+        ],
+        "denyClaims": [
+          {
+            "path": ["birth_date"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["family_name"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["resident_address"],
+            "matching": "subtree",
+            "classification": "sensitive"
+          }
+        ],
+        "disclosureProfile": {
+          "mode": "selective",
+          "knownMandatoryPaths": [],
+          "schemaId": "example:proof-of-age",
+          "schemaVersion": "1"
+        }
+      }
+    ],
+    "defaults": {
+      "unknownCredential": "indeterminate",
+      "unknownClaim": "deny",
+      "unknownDisclosure": "indeterminate",
+      "registrationEvidenceRequired": false,
+      "permitValueConstraints": false,
+      "permitHolderBindingDisabled": false,
+      "permitMultipleCredentials": false,
+      "maxCredentialQueries": 32,
+      "maxClaimQueries": 1
+    }
+  },
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"],
+            "id": "a"
+          },
+          {
+            "path": ["birth_date"],
+            "id": "b"
+          }
+        ],
+        "claim_sets": [["a"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY REQUEST_SIZE_EXCEEDS_POLICY /credentials",
+      "ALLOW UNREFERENCED_QUERY /credentials/0/claims/1"
+    ]
+  }
+}

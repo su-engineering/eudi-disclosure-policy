@@ -1,0 +1,30 @@
+{
+  "id": "TC-PATH-02",
+  "title": "mdoc intent_to_retain while retention is prohibited",
+  "reason": "The element is allowed, but retention is not.",
+  "standardRefs": ["OpenID4VP 1.0 Appendix B.2.4"],
+  "policy": "mdoc-retention",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "mdl",
+        "format": "mso_mdoc",
+        "meta": {
+          "doctype_value": "org.example.mdl.1"
+        },
+        "claims": [
+          {
+            "path": ["org.example.mdl.1", "age_over_18"],
+            "intent_to_retain": true
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY MDOC_RETENTION_REQUESTED /credentials/0/claims/0/intent_to_retain"]
+  }
+}

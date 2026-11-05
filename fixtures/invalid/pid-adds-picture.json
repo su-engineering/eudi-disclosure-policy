@@ -1,0 +1,35 @@
+{
+  "id": "SCN-B-02",
+  "title": "PID onboarding adds a portrait",
+  "reason": "picture is explicitly denied for the onboarding purpose.",
+  "standardRefs": [],
+  "policy": "pid-onboarding",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          },
+          {
+            "path": ["family_name"]
+          },
+          {
+            "path": ["picture"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY CLAIM_EXPLICITLY_DENIED /credentials/0/claims/2/path"]
+  }
+}

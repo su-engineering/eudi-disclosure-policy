@@ -1,0 +1,32 @@
+{
+  "id": "SCN-B-01",
+  "title": "PID onboarding requests name fields only",
+  "reason": "Name fields are allowed for the onboarding purpose and the mandatory iss and vct are allowed.",
+  "standardRefs": [],
+  "policy": "pid-onboarding",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          },
+          {
+            "path": ["family_name"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "ALLOW",
+    "coverage": "complete",
+    "findings": []
+  }
+}

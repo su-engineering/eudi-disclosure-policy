@@ -1,0 +1,51 @@
+{
+  "id": "SPEC-7.2",
+  "title": "Specification §7.2 branch example under the sample policy",
+  "reason": "The pid alternative uses a type the sample policy does not configure, and the sample sets unknownCredential to \"indeterminate\". It is never ALLOW; with \"deny\" it is DENY (see examples/age-verification).",
+  "standardRefs": [],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "proof",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid"]
+        },
+        "claims": [
+          {
+            "path": ["birth_date"]
+          },
+          {
+            "path": ["family_name"]
+          }
+        ]
+      }
+    ],
+    "credential_sets": [
+      {
+        "options": [["proof"], ["pid"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "partial",
+    "findings": [
+      "INDETERMINATE CREDENTIAL_TYPE_NOT_ALLOWED /credentials/1/meta/vct_values/0 [cs0.o1]"
+    ]
+  }
+}

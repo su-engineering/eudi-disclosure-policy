@@ -1,0 +1,29 @@
+{
+  "id": "TC-PATH-03b",
+  "title": "Wildcard path with no allowed overlap",
+  "reason": "No allow rule intersects the wildcard path, so it is simply not allowed.",
+  "standardRefs": ["OpenID4VP 1.0 §7.1"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["degrees", null, "type"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY CLAIM_NOT_ALLOWED_FOR_PURPOSE /credentials/0/claims/0/path"]
+  }
+}

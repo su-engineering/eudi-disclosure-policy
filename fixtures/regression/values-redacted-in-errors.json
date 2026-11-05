@@ -1,0 +1,38 @@
+{
+  "id": "TC-REDACTION-01",
+  "title": "Synthetic sensitive value in a filter",
+  "reason": "A recognizable synthetic value must not appear anywhere in the result.",
+  "standardRefs": [],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"],
+            "values": [true]
+          },
+          {
+            "path": ["document_number"],
+            "values": ["SYNTH-SECRET-0042", 7]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY VALUE_FILTER_PROBING_RISK /credentials/0/claims/0/values",
+      "DENY CLAIM_NOT_ALLOWED_FOR_PURPOSE /credentials/0/claims/1/path",
+      "DENY VALUE_FILTER_PROBING_RISK /credentials/0/claims/1/values"
+    ]
+  }
+}

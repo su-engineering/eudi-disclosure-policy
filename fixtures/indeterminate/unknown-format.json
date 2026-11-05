@@ -1,0 +1,29 @@
+{
+  "id": "TC-FORMAT-01",
+  "title": "Unsupported credential format",
+  "reason": "jwt_vc_json has no format adapter; its claims are not interpreted.",
+  "standardRefs": ["OpenID4VP 1.0 Appendix B"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "vc",
+        "format": "jwt_vc_json",
+        "meta": {
+          "type_values": [["IDCredential"]]
+        },
+        "claims": [
+          {
+            "path": ["credentialSubject", "given_name"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "unsupported",
+    "findings": ["INDETERMINATE UNSUPPORTED_CREDENTIAL_FORMAT /credentials/0/format"]
+  }
+}

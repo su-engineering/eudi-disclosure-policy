@@ -1,0 +1,35 @@
+{
+  "id": "TC-CLAIMSET-01",
+  "title": "Preferred claim set requests more than an alternative",
+  "reason": "Both options are allowed, but the preferred option is a strict superset of a later one.",
+  "standardRefs": ["OpenID4VP 1.0 §6.4.1"],
+  "policy": "pid-onboarding",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"],
+            "id": "gn"
+          },
+          {
+            "path": ["family_name"],
+            "id": "fn"
+          }
+        ],
+        "claim_sets": [["gn", "fn"], ["gn"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "WARN",
+    "coverage": "complete",
+    "findings": ["WARN CLAIM_SET_NONMINIMAL /credentials/0/claim_sets/0 [pid.cl0]"]
+  }
+}

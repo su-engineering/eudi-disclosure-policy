@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "policyId": "example.mdoc-age-no-retention",
+  "policyVersion": "1.0.0",
+  "purposeId": "age-verification-over-18-mdoc",
+  "description": "Read one namespaced age element from an mdoc and never retain it",
+  "credentials": [
+    {
+      "id": "mdl",
+      "format": "mso_mdoc",
+      "credentialType": { "kind": "doctype", "value": "org.example.mdl.1" },
+      "allowClaims": [{ "path": ["org.example.mdl.1", "age_over_18"], "matching": "exact" }],
+      "denyClaims": [
+        {
+          "path": ["org.example.mdl.1", "portrait"],
+          "matching": "exact",
+          "classification": "highly-sensitive"
+        },
+        {
+          "path": ["org.example.mdl.1", "birth_date"],
+          "matching": "exact",
+          "classification": "sensitive"
+        }
+      ],
+      "disclosureProfile": {
+        "mode": "selective",
+        "knownMandatoryPaths": [],
+        "schemaId": "example:mdl",
+        "schemaVersion": "1"
+      }
+    },
+    {
+      "id": "mdl-unprofiled",
+      "format": "mso_mdoc",
+      "credentialType": { "kind": "doctype", "value": "org.example.mdl.unprofiled.1" },
+      "allowClaims": [
+        { "path": ["org.example.mdl.unprofiled.1", "age_over_18"], "matching": "exact" }
+      ]
+    }
+  ],
+  "defaults": {
+    "unknownCredential": "indeterminate",
+    "unknownClaim": "deny",
+    "unknownDisclosure": "indeterminate",
+    "registrationEvidenceRequired": false,
+    "permitValueConstraints": false,
+    "permitHolderBindingDisabled": false,
+    "permitMultipleCredentials": false,
+    "retentionIntent": "deny"
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "id": "TC-ALT-08",
+  "title": "More than 2048 branch combinations",
+  "reason": "Twelve optional sets give 4096 combinations; the request is never allowed from a truncated analysis.",
+  "standardRefs": [],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age0",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age1",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age2",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age3",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age4",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age5",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age6",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age7",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age8",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age9",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age10",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      },
+      {
+        "id": "age11",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          }
+        ]
+      }
+    ],
+    "credential_sets": [
+      {
+        "required": false,
+        "options": [["age0"]]
+      },
+      {
+        "required": false,
+        "options": [["age1"]]
+      },
+      {
+        "required": false,
+        "options": [["age2"]]
+      },
+      {
+        "required": false,
+        "options": [["age3"]]
+      },
+      {
+        "required": false,
+        "options": [["age4"]]
+      },
+      {
+        "required": false,
+        "options": [["age5"]]
+      },
+      {
+        "required": false,
+        "options": [["age6"]]
+      },
+      {
+        "required": false,
+        "options": [["age7"]]
+      },
+      {
+        "required": false,
+        "options": [["age8"]]
+      },
+      {
+        "required": false,
+        "options": [["age9"]]
+      },
+      {
+        "required": false,
+        "options": [["age10"]]
+      },
+      {
+        "required": false,
+        "options": [["age11"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "partial",
+    "findings": [
+      "INDETERMINATE BRANCH_LIMIT_REACHED (request)",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/0/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/1/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/2/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/3/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/4/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/5/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/6/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/7/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/8/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/9/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/10/required",
+      "ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/11/required"
+    ]
+  }
+}

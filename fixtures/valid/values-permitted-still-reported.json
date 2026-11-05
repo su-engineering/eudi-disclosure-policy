@@ -1,0 +1,87 @@
+{
+  "id": "TC-VALUES-02",
+  "title": "Permitted boolean value filter",
+  "reason": "Value constraints are permitted by policy but remain a reported privacy risk, not authorization evidence.",
+  "standardRefs": ["OpenID4VP 1.0 §6.4.1"],
+  "policy": {
+    "schemaVersion": "1.0",
+    "policyId": "example.age-gate",
+    "policyVersion": "1.0.0",
+    "purposeId": "age-verification-over-18",
+    "description": "Verify age threshold without collecting identity attributes",
+    "credentials": [
+      {
+        "id": "proof-of-age",
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:proof-of-age:v1"
+        },
+        "allowClaims": [
+          {
+            "path": ["age_over_18"],
+            "matching": "exact",
+            "classification": "ordinary"
+          }
+        ],
+        "denyClaims": [
+          {
+            "path": ["birth_date"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["family_name"],
+            "matching": "exact",
+            "classification": "sensitive"
+          },
+          {
+            "path": ["resident_address"],
+            "matching": "subtree",
+            "classification": "sensitive"
+          }
+        ],
+        "disclosureProfile": {
+          "mode": "selective",
+          "knownMandatoryPaths": [],
+          "schemaId": "example:proof-of-age",
+          "schemaVersion": "1"
+        }
+      }
+    ],
+    "defaults": {
+      "unknownCredential": "indeterminate",
+      "unknownClaim": "deny",
+      "unknownDisclosure": "indeterminate",
+      "registrationEvidenceRequired": false,
+      "permitValueConstraints": true,
+      "permitHolderBindingDisabled": false,
+      "permitMultipleCredentials": false,
+      "maxCredentialQueries": 32,
+      "maxClaimQueries": 256
+    }
+  },
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"],
+            "values": [true]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "WARN",
+    "coverage": "complete",
+    "findings": ["WARN VALUE_FILTER_PROBING_RISK /credentials/0/claims/0/values"]
+  }
+}

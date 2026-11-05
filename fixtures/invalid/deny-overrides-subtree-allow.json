@@ -1,0 +1,96 @@
+{
+  "id": "TC-PURPOSE-02",
+  "title": "Explicit deny overrides a subtree allow",
+  "reason": "family_name is inside an allowed subtree but explicitly denied; selecting the parent also selects it.",
+  "standardRefs": [],
+  "policy": {
+    "schemaVersion": "1.0",
+    "policyId": "example.age-gate",
+    "policyVersion": "1.0.0",
+    "purposeId": "age-verification-over-18",
+    "description": "Verify age threshold without collecting identity attributes",
+    "credentials": [
+      {
+        "id": "proof-of-age",
+        "format": "dc+sd-jwt",
+        "credentialType": {
+          "kind": "vct",
+          "value": "urn:example:proof-of-age:v1"
+        },
+        "allowClaims": [
+          {
+            "path": ["age_over_18"],
+            "matching": "exact"
+          },
+          {
+            "path": ["name"],
+            "matching": "subtree"
+          }
+        ],
+        "denyClaims": [
+          {
+            "path": ["name", "family_name"],
+            "matching": "exact"
+          }
+        ],
+        "disclosureProfile": {
+          "mode": "selective",
+          "knownMandatoryPaths": [],
+          "schemaId": "example:proof-of-age",
+          "schemaVersion": "1"
+        }
+      }
+    ],
+    "defaults": {
+      "unknownCredential": "indeterminate",
+      "unknownClaim": "deny",
+      "unknownDisclosure": "indeterminate",
+      "registrationEvidenceRequired": false,
+      "permitValueConstraints": false,
+      "permitHolderBindingDisabled": false,
+      "permitMultipleCredentials": false,
+      "maxCredentialQueries": 32,
+      "maxClaimQueries": 256
+    }
+  },
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["name", "given_name"]
+          },
+          {
+            "path": ["name", "family_name"]
+          }
+        ]
+      },
+      {
+        "id": "age2",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["name"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY CLAIM_EXPLICITLY_DENIED /credentials/0/claims/1/path",
+      "DENY CLAIM_EXPLICITLY_DENIED /credentials/1/claims/0/path"
+    ]
+  }
+}

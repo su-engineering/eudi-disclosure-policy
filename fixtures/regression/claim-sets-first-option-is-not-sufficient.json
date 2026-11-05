@@ -1,0 +1,38 @@
+{
+  "id": "TC-ALT-05",
+  "title": "Later claim set option is overbroad",
+  "reason": "Claim set order is only a preference; the second option stays selectable.",
+  "standardRefs": ["OpenID4VP 1.0 §6.4.1"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"],
+            "id": "a"
+          },
+          {
+            "path": ["birth_date"],
+            "id": "b"
+          }
+        ],
+        "claim_sets": [["a"], ["b"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": [
+      "DENY CLAIM_SET_NONMINIMAL /credentials/0/claim_sets/1 [age.cl1]",
+      "DENY CLAIM_EXPLICITLY_DENIED /credentials/0/claims/1/path [age.cl1]"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "TC-PATH-07",
+  "title": "Wildcard in an mdoc path",
+  "reason": "mdoc claims path pointers are exactly [namespace, element] strings (§7.2).",
+  "standardRefs": ["OpenID4VP 1.0 §7.2"],
+  "policy": "mdoc-retention",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "mdl",
+        "format": "mso_mdoc",
+        "meta": {
+          "doctype_value": "org.example.mdl.1"
+        },
+        "claims": [
+          {
+            "path": ["org.example.mdl.1", null]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "unsupported",
+    "findings": ["DENY DCQL_INVALID /credentials/0/claims/0/path"]
+  }
+}

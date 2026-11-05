@@ -1,0 +1,29 @@
+{
+  "id": "TC-PURPOSE-01",
+  "title": "birth_date requested for an age-over-18 policy",
+  "reason": "birth_date is explicitly denied for the proof-of-age type, so the deny rule reports it.",
+  "standardRefs": [],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["birth_date"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY CLAIM_EXPLICITLY_DENIED /credentials/0/claims/0/path"]
+  }
+}

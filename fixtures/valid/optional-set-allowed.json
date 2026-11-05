@@ -1,0 +1,50 @@
+{
+  "id": "TC-ALT-OK-03",
+  "title": "Optional credential set with allowed content",
+  "reason": "Optional sets are requests too; this one is evaluated and complies.",
+  "standardRefs": [],
+  "policy": "pid-onboarding",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "names",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          }
+        ]
+      },
+      {
+        "id": "reference",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["onboarding_reference"]
+          }
+        ]
+      }
+    ],
+    "credential_sets": [
+      {
+        "options": [["names"]]
+      },
+      {
+        "required": false,
+        "options": [["reference"]]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "ALLOW",
+    "coverage": "complete",
+    "findings": ["ALLOW OPTIONAL_CREDENTIAL_SET /credential_sets/1/required"]
+  }
+}

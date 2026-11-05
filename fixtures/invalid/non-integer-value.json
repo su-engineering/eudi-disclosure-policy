@@ -1,0 +1,30 @@
+{
+  "id": "TC-VALUES-03",
+  "title": "Non-integer number in values",
+  "reason": "values entries are strings, integers, or booleans (§6.3).",
+  "standardRefs": ["OpenID4VP 1.0 §6.3"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"],
+            "values": [1.5]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "unsupported",
+    "findings": ["DENY DCQL_INVALID /credentials/0/claims/0/values/0"]
+  }
+}

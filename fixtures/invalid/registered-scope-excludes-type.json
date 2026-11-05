@@ -1,0 +1,47 @@
+{
+  "id": "TC-REG-07",
+  "title": "Verified scope does not list the type",
+  "reason": "The registration lists no proof-of-age type for this service.",
+  "standardRefs": [],
+  "policy": "pid-onboarding-registered",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "pid",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:pid:v1"]
+        },
+        "claims": [
+          {
+            "path": ["given_name"]
+          }
+        ]
+      }
+    ]
+  },
+  "registration": {
+    "state": "verified",
+    "provenance": {
+      "source": "urn:example:registrar:de",
+      "profile": "example-registration-v1",
+      "verifier": "example-registration-verifier/1.0",
+      "verifiedAt": "2026-11-01T09:00:00Z",
+      "expiresAt": "2027-11-01T09:00:00Z",
+      "digest": "sha-256:4f1c0a0b2c9e2f4e6f9d3c1a0b8e7d6c5b4a39281706f5e4d3c2b1a0f9e8d7c6"
+    },
+    "rpId": "urn:example:rp:shop",
+    "serviceId": "urn:example:rp:shop:onboarding",
+    "allowed": []
+  },
+  "relyingParty": {
+    "rpId": "urn:example:rp:shop",
+    "serviceId": "urn:example:rp:shop:onboarding"
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY CLAIM_NOT_IN_REGISTERED_SCOPE /credentials/0/meta/vct_values/0"]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "US-02",
+  "title": "Claim outside the purpose allowlist",
+  "reason": "email is neither allowed nor denied; unknownClaim is \"deny\".",
+  "standardRefs": [],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"]
+          },
+          {
+            "path": ["email"]
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "DENY",
+    "coverage": "complete",
+    "findings": ["DENY CLAIM_NOT_ALLOWED_FOR_PURPOSE /credentials/0/claims/1/path"]
+  }
+}

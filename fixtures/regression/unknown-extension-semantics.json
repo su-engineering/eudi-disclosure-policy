@@ -1,0 +1,30 @@
+{
+  "id": "TC-BASE-03",
+  "title": "Unknown but valid DCQL extension",
+  "reason": "The parser accepts it; it could change what a wallet discloses, so it needs review.",
+  "standardRefs": ["OpenID4VP 1.0 §6"],
+  "policy": "age-gate",
+  "evaluationTime": "2026-11-05T16:00:00Z",
+  "dcql": {
+    "credentials": [
+      {
+        "id": "age",
+        "format": "dc+sd-jwt",
+        "meta": {
+          "vct_values": ["urn:example:proof-of-age:v1"]
+        },
+        "claims": [
+          {
+            "path": ["age_over_18"],
+            "x_include_related": true
+          }
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "verdict": "INDETERMINATE",
+    "coverage": "partial",
+    "findings": ["INDETERMINATE UNKNOWN_EXTENSION_REVIEW /credentials/0/claims/0/x_include_related"]
+  }
+}
