@@ -1,6 +1,6 @@
 {
   "name": "@su-engineering/eudi-disclosure-policy",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Verifier-side preflight for OpenID4VP DCQL requests: check every requested credential and claim alternative against a data-minimization policy before the request reaches a wallet.",
   "license": "Apache-2.0",
   "type": "module",
