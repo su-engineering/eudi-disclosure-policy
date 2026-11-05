@@ -1,0 +1,7 @@
+dist/
+coverage/
+pnpm-lock.yaml
+CHANGELOG.md
+test/.bundle/
+test/__snapshots__/
+docs/rule-reference.md

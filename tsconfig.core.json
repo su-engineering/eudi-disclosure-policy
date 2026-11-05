@@ -1,0 +1,10 @@
+{
+  // The portable core must compile without Node.js or DOM types. This guards
+  // against accidental use of process, Buffer, fetch, or node: modules.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": []
+  },
+  "include": ["src"],
+  "exclude": ["src/cli"]
+}

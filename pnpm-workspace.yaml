@@ -1,0 +1,6 @@
+allowBuilds:
+  esbuild: true
+
+# Dev tooling only: eslint pulls a minimatch affected by GHSA-g3hv-75wg-m249.
+overrides:
+  minimatch: ^11.0.1

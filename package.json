@@ -1,0 +1,93 @@
+{
+  "name": "@su-engineering/eudi-disclosure-policy",
+  "version": "0.0.0",
+  "description": "Verifier-side preflight for OpenID4VP DCQL requests: check every requested credential and claim alternative against a data-minimization policy before the request reaches a wallet.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "schema",
+    "docs",
+    "README.md",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./policy.schema.json": "./schema/disclosure-policy-v1.schema.json",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "eudi-disclosure": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:package": "node tools/check-package.mjs",
+    "examples": "node tools/run-examples.mjs",
+    "check": "pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm test:package && pnpm examples",
+    "prepublishOnly": "pnpm typecheck && pnpm build && pnpm test:package && pnpm test",
+    "release": "node tools/publish.mjs"
+  },
+  "keywords": [
+    "eudi",
+    "eudi-wallet",
+    "openid4vp",
+    "dcql",
+    "data-minimization",
+    "privacy",
+    "policy-as-code",
+    "sd-jwt-vc",
+    "mdoc",
+    "verifiable-credentials",
+    "eidas"
+  ],
+  "dependencies": {
+    "@openeudi/dcql": "0.3.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "3.0.3",
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.1.0",
+    "ajv": "8.20.0",
+    "esbuild": "0.28.2",
+    "eslint": "10.14.0",
+    "fast-check": "4.10.2",
+    "globals": "17.14.0",
+    "prettier": "3.9.10",
+    "tsup": "9.0.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "5.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/su-engineering/eudi-disclosure-policy.git"
+  },
+  "homepage": "https://github.com/su-engineering/eudi-disclosure-policy#readme",
+  "bugs": {
+    "url": "https://github.com/su-engineering/eudi-disclosure-policy/issues"
+  },
+  "author": "su.engineering",
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@11.2.2",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
