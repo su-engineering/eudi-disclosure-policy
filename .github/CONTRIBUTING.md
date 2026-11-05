@@ -37,7 +37,7 @@ pnpm check
 - **Core purity.** No network, file system, clock, randomness, environment, or `node:` imports outside `src/cli/`. Lint and `tsconfig.core.json` enforce this.
 - **No values in output.** Findings, messages, and errors must not include claim values or other request content beyond identifiers and paths.
 - **Rule changes are versioned.** Changing a rule's trigger, default verdict, or category bumps `RULES_VERSION` in `src/version.ts`. Never rename or reuse a rule ID.
-- **Standards first.** Behavior that implements a clause cites it in the fixture's `standardRefs`. Do not adopt draft specifications; see the [update rule](docs/standards-lock.md#update-rule).
+- **Standards first.** Behavior that implements a clause cites it in the fixture's `standardRefs`. Do not adopt draft specifications; see the [update rule](../docs/standards-lock.md#update-rule).
 
 ## Adding a fixture
 
@@ -63,8 +63,8 @@ Contributions are licensed under Apache-2.0. Do not commit personal data, real c
 
 ## Community
 
-Read the [code of conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+Read the [code of conduct](CODE_OF_CONDUCT.md). Report vulnerabilities privately as described in [SECURITY.md](../SECURITY.md).
 
 ## Releases
 
-Releases use Changesets and npm trusted publishing; see [docs/releasing.md](docs/releasing.md).
+Releases use Changesets and npm trusted publishing; see [docs/releasing.md](../docs/releasing.md).
