@@ -2,6 +2,7 @@
 # The repository root is the site root, so relative links in Markdown work on
 # GitHub and on the site alike.
 title: EUDI Disclosure Policy
+tagline: OpenID4VP DCQL linter for EUDI Wallet verifiers
 description: >-
   OpenID4VP DCQL request linter for EUDI Wallet verifiers. Check every
   credential and claim alternative against a data-minimization policy before
