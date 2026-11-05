@@ -196,7 +196,7 @@ pnpm install --frozen-lockfile
 pnpm check   # lint, typecheck, tests, build, package check, examples
 ```
 
-Use Node.js 22 or newer. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Changes to rule behavior need a fixture and a [changeset](.changeset/README.md).
+Use Node.js 22 or newer. Read [CONTRIBUTING.md](.github/CONTRIBUTING.md) before opening a pull request. Changes to rule behavior need a fixture and a [changeset](.changeset/README.md).
 
 ## FAQ
 
